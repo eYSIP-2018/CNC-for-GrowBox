@@ -1,4 +1,4 @@
-troughno: 1
+troughno: 2
 status: seeded
 date of sowing: 12/6/2018
 plant: methi
