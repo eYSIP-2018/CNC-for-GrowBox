@@ -1,0 +1,6 @@
+troughno: 1
+status: seeded
+date of sowing: 12/6/2018
+plant: methi
+no of plants: 6
+average growth: 0
