@@ -114,9 +114,9 @@ def go_for_y(final):
 	arduino_confirm=False
 	mystring=""
 	if final is 0 :
-		comm_string="@"+"0000"+str(dist_y_bord)+"000"+"001"+"!"
+		comm_string="@"+"0000"+str(dist_y_bord).zfill(3)+"000"+"002"+"!"
 	elif final is 1 :
-		comm_string="@"+"0000"+str(distance)+"000"+"001"+"!"
+		curr_y=distance
 	ser.write(comm_string.encode("ascii"))
 	while arduino_confirm is False :
 		line_in=ser.readline()
@@ -139,9 +139,10 @@ def go_for_x(final):
 	arduino_confirm=False
 	mystring=""
 	if final is 0 :
-		comm_string="@"+str(dist_x_bord)+"000"+"000"+"!"
+		comm_string="@"+str(dist_x_bord).zfill(4)+"000"+"000"+"002"+"!"
 	elif final is 1 :
-		comm_string="@"+str(distance)+"000"+"000"+"!"
+		curr_x=distance
+		comm_string="@"+str(curr_x).zfill(4)+str(curr_y).zfill(3)+"000"+"001"+"!"
 	ser.write(comm_string.encode("ascii"))
 	while arduino_confirm is False :
 		line_in=ser.readline()
