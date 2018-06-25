@@ -113,16 +113,16 @@ def go_for_y(final):
 	# communication string : @ + x_coord + y_coord + z_coord + seed_bit + water_bit + initialization_bit + !
 	arduino_confirm=False
 	mystring=""
-	if final is 0 :
+	if final == 0 :
 		comm_string="@"+"0000"+str(dist_y_bord).zfill(3)+"000"+"002"+"!"
-	elif final is 1 :
+	elif final == 1 :
 		curr_y=distance
 	ser.write(comm_string.encode("ascii"))
-	while arduino_confirm is False :
+	while arduino_confirm == False :
 		line_in=ser.readline()
 		for char in line_in:
 			mystring = mystring + chr(char)
-		if mystring is "@done!" :
+		if mystring == "@done!" :
 			arduino_confirm=True
 
 #****************************************
@@ -138,17 +138,17 @@ def go_for_y(final):
 def go_for_x(final):
 	arduino_confirm=False
 	mystring=""
-	if final is 0 :
+	if final == 0 :
 		comm_string="@"+str(dist_x_bord).zfill(4)+"000"+"000"+"002"+"!"
-	elif final is 1 :
+	elif final == 1 :
 		curr_x=distance
 		comm_string="@"+str(curr_x).zfill(4)+str(curr_y).zfill(3)+"000"+"001"+"!"
 	ser.write(comm_string.encode("ascii"))
-	while arduino_confirm is False :
+	while arduino_confirm == False :
 		line_in=ser.readline()
 		for char in line_in:
 			mystring = mystring + chr(char)
-		if mystring is "@done!" :
+		if mystring == "@done!" :
 			arduino_confirm=True
 
 #****************************************
@@ -167,10 +167,10 @@ def image_process_for_coord():
 	ret, img = cap.read()
 	if cap.isOpened() :
 		hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-		if phase is 1 :
+		if phase == 1 :
 			lower_range=np.array([160,50,50])
 			higher_range=np.array([180,255,255])
-		elif phase is 2:
+		elif phase == 2:
 			lower_range=np.array([0,50,50])
 			higher_range=np.array([0,255,255])
 		mask1 = cv2.inRange(hsv,lower_range,higher_range)
@@ -179,11 +179,11 @@ def image_process_for_coord():
 		image,contours,hier = cv2.findContours(thrshed,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
 		areas = [cv2.contourArea(c) for c in contours]
 		max_index = np.argmax(areas)
-		if areas[max_index]>13000 and phase is 1 :
+		if areas[max_index]>13000 and phase == 1 :
 			found_red=True
-		elif areas[max_index]>1000 and phase is 2 :
+		elif areas[max_index]>1000 and phase == 2 :
 			found_black=True
-		if found_red is True and phase is 1 :
+		if found_red == True and phase == 1 :
 			cnt=contours[max_index]
 			rect = cv2.minAreaRect(cnt)
 			box = cv2.boxPoints(rect)
@@ -195,7 +195,7 @@ def image_process_for_coord():
 			cal_distance_for_red(x1,x2,x3,x4,y1,y2,y3,y4)
 			go_for_y(1)
 			phase = 2
-		elif found_black is True and phase is 2 :
+		elif found_black == True and phase == 2 :
 			cnt=contours[max_index]
 			rect = cv2.minAreaRect(cnt)
 			box = cv2.boxPoints(rect)
@@ -214,11 +214,11 @@ def image_process_for_coord():
 #  * Example Call: coord_ini()
 #****************************************
 def coord_ini() :
-	while found_red is False and found_black is False :
-		if phase is 1:
+	while found_red == False and found_black == False :
+		if phase == 1:
 			go_for_y(0)
 			image_process_for_coord()
-		elif phase is 2:
+		elif phase == 2:
 			go_for_x(0)
 			image_process_for_coord()
 	coord_ini_status=True

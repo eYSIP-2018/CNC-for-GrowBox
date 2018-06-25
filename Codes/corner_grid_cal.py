@@ -63,11 +63,11 @@ def go_at_start():
 	mystring=""
 	comm_string="@"+"0020"+"0020"+"000"+"000"+"!"
 	ser.write(comm_string.encode("ascii"))
-	while arduino_confirm is False :
+	while arduino_confirm == False :
 		line_in=ser.readline()
 		for char in line_in:
 			mystring = mystring + chr(char)
-		if mystring is "@done!" :
+		if mystring == "@done!" :
 			arduino_confirm=True
 			curr_y=20
 			curr_x=20
@@ -85,11 +85,11 @@ def go_at_start():
 #  * Example Call: hard_distance(0)
 #**********************************************************
 def hard_distance(number):
-	if number is 0 :
+	if number == 0 :
 		hard_coord_x = 30*no_of_iterations
-	elif number is 1 :
+	elif number == 1 :
 		hard_coord_x = 80 
-	elif number is 2 :
+	elif number == 2 :
 		hard_coord_y=40
 
 	arduino_confirm=False
@@ -99,11 +99,11 @@ def hard_distance(number):
 	else : 
 		comm_string="@"+str(curr_x)+str(hard_coord_y)+str(curr_z)+"000"+"!"
 	ser.write(comm_string.encode("ascii"))
-	while arduino_confirm is False :
+	while arduino_confirm == False :
 		line_in=ser.readline()
 		for char in line_in:
 			mystring = mystring + chr(char)
-		if mystring is "@done!" :
+		if mystring == "@done!" :
 			if corner_finder < 2 :
 				curr_x = hard_coord_x
 			else :
@@ -140,19 +140,19 @@ def image_process_for_corner():
 		
 		if len(approx) == 10 :
 			xc,yc=(640,512)
-			if corner_finder is 0 :
+			if corner_finder == 0 :
 				point_x=(approx[8][0][0]-xc)*mm_per_pix
 				point_y=(approx[8][0][1]-yc)*mm_per_pix
 				corner_x=point_x+curr_x
 				corner_y=point_y+curr_y
 				trough_points.append((corner_x,corner_y))
-			elif corner_finder is 1 :
+			elif corner_finder == 1 :
 				#point_x=(approx[][0][1]-xc)*mm_per_pix
 				#point_y=(approx[][0][1]-yc)*mm_per_pix
 				corner_x=point_x+curr_x
 				corner_y=point_y+curr_y
 				trough_points.append((corner_x,corner_y))
-			elif corner_finder is 2 :
+			elif corner_finder == 2 :
 				#point_x=(approx[][0][1]-xc)*mm_per_pix
 				#point_y=(approx[][0][1]-yc)*mm_per_pix
 				corner_x=point_x+curr_x
