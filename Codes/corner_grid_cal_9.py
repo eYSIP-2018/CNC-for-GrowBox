@@ -103,14 +103,15 @@ def get_coordinate():
 	#cap = cv2.VideoCapture(0)
 	#cap.set(3,1280)
 	#cap.set(4,1024)
-	reso=cap.get(15)
+	cap.set(15,1)
+	#print(reso)
 	#time.sleep(4)
 	ret, frame = cap.read()
 	
 	cap.release()
 	if ret :
 		hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-		lower_range=np.array([160,50,50])
+		lower_range=np.array([172,65,65])
 		higher_range=np.array([180,255,255])
 		mask1 = cv2.inRange(hsv,lower_range,higher_range)
 		res = cv2.bitwise_and(frame,frame, mask=mask1)
@@ -208,8 +209,9 @@ def image_process_for_corner():
 	#time.sleep(24)
 	cap.set(3,1280)
 	cap.set(4,1024)
-	#time.sleep(20)
-	#cap.set(15,reso)
+	#time.sleep(5)
+	cap.set(15,1)
+	#time.sleep(5)
 	ret, frame = cap.read()
 	#print("hi")
 	#time.sleep(1)
@@ -219,7 +221,7 @@ def image_process_for_corner():
 	if ret :
 		hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 		print("in")
-		lower_range=np.array([90,70,70])
+		lower_range=np.array([90,50,50])
 		higher_range=np.array([130,255,255])
 		mask1 = cv2.inRange(hsv,lower_range,higher_range)
 		res = cv2.bitwise_and(frame,frame, mask=mask1)
@@ -231,7 +233,7 @@ def image_process_for_corner():
 		area = 0
 		for cnt in contours :
 			area = cv2.contourArea(cnt)
-			if area>4200 :
+			if area>3000 :
 				rect = cv2.minAreaRect(cnt)
 				print(area)
 				time.sleep(2)
@@ -355,7 +357,7 @@ def create_grid():
 def find_corners():
 	global no_of_iterations
 	global corner_finder
-	time.sleep(20)
+	#time.sleep(5)
 	get_coordinate()
 	#go_at_start()
 	corner_finder=0
