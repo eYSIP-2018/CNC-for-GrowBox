@@ -208,9 +208,16 @@ void loop()
     
     if(str[13]==1)      //  co-ordinate system initialisation 
     {
-        x_current=x_target;
-        y_current=y_target;
-        z_current=0;
+
+
+      rot_deg_x=x_target*360/(20*7.9)
+      count_x=rot_deg_x*CPR_x/360 
+
+        rot_deg_y=y_target*360/(20*8)
+      count_y=rot_deg_y*CPR_y/360 
+      
+         rot_deg_z=z_target*360/(8)
+      count_z=rot_deg_z*CPR_z/360
        // goto input;
     }
   /*  
@@ -301,9 +308,9 @@ void go_to_x(float x_target)  // This function takes input of x-coordinate where
             {
                digitalWrite(mxa1,HIGH);
                digitalWrite(mxa2,LOW);
-               analogWrite(mxen_a,100);
-              rot_deg_x=count_x*360/(CPR_x);
-              x_current=rot_deg_x*(20*8.2)/(360);        //  x=deg*no of teeth*pitch/360
+               analogWrite(mxen_a,200);               
+              rot_deg_x=count_x*360/(CPR_x);             
+              x_current=rot_deg_x*(20*7.9)/(360);        //  x=deg*no of teeth*pitch/360
             } 
        }  
        else if(x_target<x_current)
@@ -312,9 +319,9 @@ void go_to_x(float x_target)  // This function takes input of x-coordinate where
               {
                  digitalWrite(mxa1,LOW);
                  digitalWrite(mxa2,HIGH);
-                 analogWrite(mxen_a,100);
+                 analogWrite(mxen_a,200);
                 rot_deg_x=count_x*360/(CPR_x);
-                x_current=rot_deg_x*(20*8.35)/(360);        //  x=deg*no of teeth*pitch/360
+                x_current=rot_deg_x*(20*8.7)/(360);        //  x=deg*no of teeth*pitch/360
               } 
        }
            digitalWrite(mxa1,LOW);
@@ -333,7 +340,7 @@ void go_to_y(float y_target) // This function takes input of y-coordinate where 
               {
                  digitalWrite(myb1,HIGH);
                  digitalWrite(myb2,LOW);
-                 analogWrite(myen_b,255);
+                 analogWrite(myen_b,200);
                 rot_deg_y=count_y*360/(CPR_y);
                 y_current=rot_deg_y*(20*8)/(360);        //  y=deg*no of teeth*pitch/360
               } 
@@ -345,7 +352,7 @@ void go_to_y(float y_target) // This function takes input of y-coordinate where 
             {
                digitalWrite(myb1,LOW);
                digitalWrite(myb2,HIGH);
-               analogWrite(myen_b,255);
+               analogWrite(myen_b,200);
               rot_deg_y=count_y*360/(CPR_y);
               y_current=rot_deg_y*(20*8.35)/(360);        //  y=deg*no of teeth*pitch/360
             } 
@@ -369,7 +376,7 @@ void go_to_z(float z_target) // This function takes input of z-coordinate where 
                    digitalWrite(mza2,LOW);
                    analogWrite(mzen_a,255);
                   rot_deg_z=count_z*360/(CPR_z);
-                  z_current=rot_deg_z*(20*7.85398)/(360);        //  z=deg*no of teeth*pitch/360
+                  z_current=rot_deg_z*(8)/(360);        //  z=deg*no of teeth*pitch/360
                 } 
         } 
 
@@ -381,7 +388,7 @@ void go_to_z(float z_target) // This function takes input of z-coordinate where 
                    digitalWrite(mza2,HIGH);
                    analogWrite(mzen_a,255);
                   rot_deg_z=count_z*360/(CPR_z);
-                  z_current=rot_deg_z*(20*7.85398)/(360);        //  z=deg*no of teeth*pitch/360
+                  z_current=rot_deg_z*(8)/(360);        //  z=deg*no of teeth*pitch/360
                 } 
         }
         
