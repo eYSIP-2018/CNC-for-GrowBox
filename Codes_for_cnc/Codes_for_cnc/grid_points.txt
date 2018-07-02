@@ -1,0 +1,8 @@
+plant1:629 326
+plant2:500 350
+plant3:370 374
+plant4:241 398
+plant5:616 151
+plant6:486 175
+plant7:357 198
+plant8:227 222
