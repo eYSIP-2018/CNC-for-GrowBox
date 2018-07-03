@@ -1,0 +1,6 @@
+troughno: 1
+status: seeded
+date of sowing: 24/6/2018
+plant: spinach
+no of plants: 8
+average growth: 0
