@@ -49,7 +49,7 @@ def go_to_start():
 	global ini_z
 	arduino_confirm=False
 	mystring=""
-	comm_string="@"+str(ini_x).zfill(4)+str(ini_y).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
+	comm_string="@"+str(ini_x+65).zfill(4)+str(ini_y+20).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
 	ser.write(comm_string.encode("ascii"))
 	print(comm_string)
 	while arduino_confirm == False :
@@ -135,12 +135,12 @@ def get_coordinate():
 	cap = cv2.VideoCapture(0)
 	cap.set(3,1280)
 	cap.set(4,1024)
-	cap.set(15,1.1)
+	cap.set(15,1.0)
 	ret, frame = cap.read()
 	cap.release()
 	if ret :
 		hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-		lower_range=np.array([172,65,65])
+		lower_range=np.array([165,65,65])
 		higher_range=np.array([180,255,255])
 		mask1 = cv2.inRange(hsv,lower_range,higher_range)
 		res = cv2.bitwise_and(frame,frame, mask=mask1)
@@ -199,7 +199,7 @@ def motor_for_seed():
 	for point in g_points :
 		arduino_confirm=False
 		mystring=""
-		comm_string="@"+str(point[0]).zfill(4)+str(point[1]).zfill(3)+"000"+"000"+"!"
+		comm_string="@"+str(point[0]+80).zfill(4)+str(point[1]).zfill(3)+"070"+"010"+"!"
 		ser.write(comm_string.encode("ascii"))
 		print(comm_string)
 		while arduino_confirm == False :
@@ -209,8 +209,10 @@ def motor_for_seed():
 			if mystring == "@done!\n":
 				arduino_confirm=True
 				iter=iter+1
+				#time.sleep(20)
 				go_to_start()
 				get_coordinate()
 				get_ini_coord()
+				#time.sleep(20)
 
 motor_for_seed()

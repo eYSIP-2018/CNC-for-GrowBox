@@ -33,7 +33,7 @@ curr_y=0
 curr_x=0
 arduino_confirm = False
 g_points=list()
-ser = serial.Serial('/dev/ttyACM1',9600)
+ser = serial.Serial('/dev/ttyACM0',9600)
 comm_string=""
 #**********************************************************
 #Function Name:go_to_start
@@ -49,7 +49,7 @@ def go_to_start():
 	global ini_z
 	arduino_confirm=False
 	mystring=""
-	comm_string="@"+str(ini_x).zfill(4)+str(ini_y).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
+	comm_string="@"+str(ini_x+75).zfill(4)+str(ini_y+17).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
 	ser.write(comm_string.encode("ascii"))
 	print(comm_string)
 	while arduino_confirm == False :
@@ -194,6 +194,7 @@ def motor_for_water():
 	get_coordinate()
 	get_ini_coord()
 	get_data()
+	iter=0
 
 	for point in g_points :
 		arduino_confirm=False
@@ -207,9 +208,14 @@ def motor_for_water():
 				mystring = mystring + chr(char)
 			if mystring == "@done!\n":
 				arduino_confirm=True
-				go_to_start()
-				get_coordinate()
-				get_ini_coord()
+				iter=iter+1
+				if iter==2 or iter==4 :
+                                    go_to_start()
+                                    get_coordinate()
+                                    get_ini_coord()
+				#go_to_start()
+				#get_coordinate()
+				#get_ini_coord()
 
 motor_for_water()
 

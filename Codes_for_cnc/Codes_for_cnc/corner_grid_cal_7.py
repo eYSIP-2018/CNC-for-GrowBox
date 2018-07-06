@@ -92,7 +92,7 @@ def go_to_start():
 	global ini_z
 	arduino_confirm=False
 	mystring=""
-	comm_string="@"+str(ini_x).zfill(4)+str(ini_y).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
+	comm_string="@"+str(ini_x+50).zfill(4)+str(ini_y+20).zfill(3)+str(ini_z).zfill(3)+"000"+"!"
 	ser.write(comm_string.encode("ascii"))
 	print(comm_string)
 	while arduino_confirm == False :
@@ -275,7 +275,7 @@ def image_process_for_corner():
 	cap.set(3,1280)
 	cap.set(4,1024)
 	#time.sleep(5)
-	cap.set(15,1.9)
+	cap.set(15,1.0)
 	#time.sleep(5)
 	ret, frame = cap.read()
 	#print("hi")
@@ -286,8 +286,8 @@ def image_process_for_corner():
 	if ret :
 		hsv=cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
 		print("in")
-		lower_range=np.array([90,80,80])
-		higher_range=np.array([130,255,255])
+		lower_range=np.array([90,70,70])
+		higher_range=np.array([120,255,255])
 		mask1 = cv2.inRange(hsv,lower_range,higher_range)
 		res = cv2.bitwise_and(frame,frame, mask=mask1)
 		ret,thrshed = cv2.threshold(cv2.cvtColor(res,cv2.COLOR_BGR2GRAY),3,255,cv2.THRESH_BINARY)
