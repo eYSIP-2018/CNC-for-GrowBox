@@ -206,18 +206,18 @@ void loop()
   {
     get_parameters();// function call to set parameters and string processing 
     
-    if(str[13]==1)      //  co-ordinate system initialisation 
+    if(str[13]==1 || str[13]==2)      //  co-ordinate system initialisation 
     {
 
 
-      rot_deg_x=x_target*360/(20*7.9)
-      count_x=rot_deg_x*CPR_x/360 
+      rot_deg_x=x_target*360/(20*7.9);
+      count_x=rot_deg_x*CPR_x/360; 
 
-        rot_deg_y=y_target*360/(20*8)
-      count_y=rot_deg_y*CPR_y/360 
+        rot_deg_y=y_target*360/(20*8);
+      count_y=rot_deg_y*CPR_y/360; 
       
-         rot_deg_z=z_target*360/(8)
-      count_z=rot_deg_z*CPR_z/360
+         rot_deg_z=z_target*360/(8);
+      count_z=rot_deg_z*CPR_z/360;
        // goto input;
     }
   /*  
@@ -237,9 +237,15 @@ void loop()
     
      if(seed==1) start_seeder();
      
-    go_to_x(x_target);
-    go_to_y(y_target);
-    go_to_z(z_target);
+     if(str[13]==0 || str[13]==2)
+     {
+             if(x_target!=x_current)  go_to_x(x_target);
+            if(y_target!=y_current)   go_to_y(y_target);
+            if(z_target!=z_current)   go_to_z(z_target);
+     }
+     
+   
+    
     
     if(seed==1)
     {
@@ -321,7 +327,7 @@ void go_to_x(float x_target)  // This function takes input of x-coordinate where
                  digitalWrite(mxa2,HIGH);
                  analogWrite(mxen_a,200);
                 rot_deg_x=count_x*360/(CPR_x);
-                x_current=rot_deg_x*(20*8.7)/(360);        //  x=deg*no of teeth*pitch/360
+                x_current=rot_deg_x*(20*9.2)/(360);        //  x=deg*no of teeth*pitch/360
               } 
        }
            digitalWrite(mxa1,LOW);
@@ -401,12 +407,12 @@ void start_seeder()   // function to seed plants  i.e to actuate the vacumm pump
 {    
         go_to_x(50);   // going to location of seed compartment 
         go_to_y(225);
-        go_to_z(0);
+        go_to_z(100);
        digitalWrite(v_pump_b1,LOW);  // vaccum pump starts and picks up seed
       digitalWrite(v_pump_b2,HIGH);
       analogWrite(v_pump_en,255); 
       delay(5000);
-      go_to_z(600);     //arm retracting 
+      go_to_z(0);     //arm retracting 
   
 }
 
